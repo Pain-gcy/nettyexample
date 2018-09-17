@@ -12,13 +12,14 @@ import io.netty.handler.timeout.ReadTimeoutHandler;
  */
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel socketChannel) throws Exception {
-        //数据处理
-        socketChannel.pipeline().addLast(new DiscardServerHandler());
+
         //如果5s内没有与服务器童心的客户端自动断开
         socketChannel.pipeline().addLast(new ReadTimeoutHandler(5));
         // 添加支持字符集
         socketChannel.pipeline().addLast(new StringDecoder());
         socketChannel.pipeline().addLast(new StringEncoder());
 
+        //数据处理 要放在最后
+        socketChannel.pipeline().addLast(new DiscardServerHandler());
     }
 }

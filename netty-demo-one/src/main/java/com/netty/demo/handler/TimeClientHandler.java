@@ -25,11 +25,12 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
             ctx.writeAndFlush(message);
         }
     }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         try {
-            ByteBuf in = (ByteBuf) msg;
-            System.out.println(in.toString(CharsetUtil.UTF_8));
+            String in = (String) msg;
+            System.out.println("返回的信息："+in);
         }  finally {
             ReferenceCountUtil.release(msg);
         }
