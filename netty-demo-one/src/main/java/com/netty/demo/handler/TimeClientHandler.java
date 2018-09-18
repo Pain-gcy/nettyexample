@@ -36,6 +36,17 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         }
     }
 
+    /**
+     * 强行缓存输出
+     * @param ctx
+     * @throws Exception
+     */
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        super.channelReadComplete(ctx);
+        ctx.flush();
+    }
+
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         // 出现异常就关闭
